@@ -34,6 +34,14 @@ CurlMulti::CurlMulti(const Napi::CallbackInfo& info)
 
 CurlMulti::~CurlMulti() {
   if (!closed_) {
+    closed_ = true;
+
+    // Remove pending transfers
+    for (auto& [handle, ctx] : transfers_) {
+      curl_multi_remove_handle(multi_, handle);
+    }
+    transfers_.clear();
+
     // Clean up sockets
     for (auto& [sockfd, ctx] : sockets_) {
       uv_poll_stop(&ctx->poll_handle);
@@ -42,13 +50,11 @@ CurlMulti::~CurlMulti() {
     sockets_.clear();
 
     uv_timer_stop(&timeout_timer_);
-    uv_close(reinterpret_cast<uv_handle_t*>(&timeout_timer_), nullptr);
 
     if (multi_) {
       curl_multi_cleanup(multi_);
       multi_ = nullptr;
     }
-    closed_ = true;
   }
 }
 

@@ -143,10 +143,20 @@ export class Session {
       easy.setoptSlist(CurlOpt.HTTPHEADER, curlHeaders);
     }
 
-    // 6. Cookies
+    // 6. Cookies — enable curl's built-in cookie engine + inject from jar
+    easy.setoptString(CurlOpt.COOKIEFILE, ""); // activate in-memory cookie engine
     const cookieStr = this.cookies.getCookieString(url);
     if (cookieStr) {
       easy.setoptString(CurlOpt.COOKIE, cookieStr);
+    }
+    // Inject individual cookies into curl's cookie engine
+    for (const cookie of this.cookies.getAll()) {
+      const domain = cookie.domain || new URL(url).hostname;
+      const secure = cookie.secure ? "TRUE" : "FALSE";
+      const httpOnly = cookie.httpOnly ? "#HttpOnly_" : "";
+      const expires = cookie.expires > 0 ? String(cookie.expires) : "0";
+      const line = `${httpOnly}${domain}\tTRUE\t${cookie.path}\t${secure}\t${expires}\t${cookie.name}\t${cookie.value}`;
+      easy.setoptString(CurlOpt.COOKIELIST, line);
     }
 
     // 7. Redirects
