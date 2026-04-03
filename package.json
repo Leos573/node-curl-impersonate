@@ -1,0 +1,51 @@
+{
+  "name": "node-curl-impersonate",
+  "version": "0.1.0",
+  "description": "Node.js HTTP client with browser TLS fingerprint impersonation, powered by libcurl-impersonate",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build:native": "node-gyp rebuild",
+    "build:ts": "tsc",
+    "build": "npm run build:native && npm run build:ts",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "clean": "node-gyp clean && rm -rf dist",
+    "prepare": "npm run build",
+    "download-libcurl": "node scripts/download-libcurl.mjs"
+  },
+  "keywords": [
+    "curl",
+    "tls",
+    "fingerprint",
+    "impersonate",
+    "ja3",
+    "http2",
+    "http3",
+    "websocket",
+    "anti-bot",
+    "scraping"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "node-addon-api": "^8.3.1",
+    "node-gyp-build": "^4.8.4"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.3",
+    "node-gyp": "^11.1.0",
+    "typescript": "^5.8.3",
+    "vitest": "^3.1.2"
+  },
+  "files": [
+    "dist",
+    "src",
+    "binding.gyp",
+    "prebuilds",
+    "scripts"
+  ],
+  "gypfile": true
+}

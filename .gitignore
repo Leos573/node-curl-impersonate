@@ -1,0 +1,8 @@
+node_modules/
+build/
+dist/
+deps/*.a
+deps/*.la
+deps/include/
+*.node
+.DS_Store
