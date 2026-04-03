@@ -134,6 +134,8 @@ void CurlMulti::Close(const Napi::CallbackInfo& info) {
  * Check for completed transfers and resolve/reject their promises.
  */
 void CurlMulti::CheckMultiInfo() {
+  Napi::HandleScope scope(env_);
+
   CURLMsg* msg;
   int msgs_left;
 

@@ -5,13 +5,15 @@ import * as path from "path";
  * Tries build/Release first (dev), then prebuilds (production).
  */
 function loadNative(): NativeModule {
-  const buildPath = path.join(__dirname, "..", "..", "build", "Release", "curl_napi.node");
+  // __dirname = <project>/dist when compiled, <project>/src/ts in dev
+  const projectRoot = path.resolve(__dirname, "..");
+  const buildPath = path.join(projectRoot, "build", "Release", "curl_napi.node");
   try {
     return require(buildPath);
   } catch {
     // Try node-gyp-build for prebuilds
     const gypBuild = require("node-gyp-build");
-    return gypBuild(path.join(__dirname, "..", ".."));
+    return gypBuild(projectRoot);
   }
 }
 
